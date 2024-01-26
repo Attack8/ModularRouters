@@ -29,6 +29,7 @@ public class CommonConfig {
         public BooleanValue extruderSound;
         public BooleanValue extruderPushEntities;
         public BooleanValue breakerHarvestLevelLimit;
+        public BooleanValue enableSecurityUpgrade;
     }
 
     public static class Router {
@@ -145,6 +146,9 @@ public class CommonConfig {
         module.breakerHarvestLevelLimit = builder.comment("Should Breaker & Extruder Mk1 Modules respect the harvest level of the pickaxe used to craft them? (e.g. craft with an Iron Pickaxe => can't break Obsidian")
                 .translation("gui.config.breakerHarvestLevelLimit")
                 .define("breakerHarvestLevelLimit", true);
+        module.enableSecurityUpgrade = builder.comment("Should players be able to use the Security Upgrade?")
+                .translation("gui.config.enableSecurityUpgrade")
+                .define("enableSecurityUpgrade", true);
         builder.pop();
 
         builder.push("Router");

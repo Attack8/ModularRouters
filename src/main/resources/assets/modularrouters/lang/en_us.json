@@ -353,5 +353,6 @@
    "modularrouters.jei.recipe.module_reset.description" : "Completely resets the module to its newly-crafted state.  Beware: ALL data, including filter settings and enchantments, will be lost (but any installed augments will be returned)",
    "modularrouters.jei.recipe.module_reset" : "Module Reset",
    "modularrouters.patchouli.book.landing" : "This manual is a complete reference guide to $(#228)Modular Routers/$.",
-   "modularrouters.patchouli.book.name" : "Modular Routers Manual"
+   "modularrouters.patchouli.book.name" : "Modular Routers Manual",
+   "modularrouters.itemText.security.disabled": "The Security Upgrade is Disabled in this World"
 }

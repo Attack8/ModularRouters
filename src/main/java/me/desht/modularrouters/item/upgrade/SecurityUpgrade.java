@@ -4,6 +4,7 @@ import com.google.common.collect.Sets;
 import me.desht.modularrouters.block.tile.ModularRouterBlockEntity;
 import me.desht.modularrouters.client.util.ClientUtil;
 import me.desht.modularrouters.client.util.TintColor;
+import me.desht.modularrouters.config.ConfigHolder;
 import me.desht.modularrouters.core.ModSounds;
 import me.desht.modularrouters.item.IPlayerOwned;
 import net.minecraft.ChatFormatting;
@@ -28,6 +29,9 @@ public class SecurityUpgrade extends UpgradeItem implements IPlayerOwned {
 
     @Override
     public void addExtraInformation(ItemStack itemstack,  List<Component> list) {
+        if (!ConfigHolder.common.module.enableSecurityUpgrade.get()) {
+            list.add(ClientUtil.xlate("modularrouters.itemText.security.disabled"));
+        }
         String owner = getOwnerName(itemstack);
         if (owner == null) owner = "-";
         list.add(ClientUtil.xlate("modularrouters.itemText.security.owner", ChatFormatting.AQUA + owner));
@@ -126,10 +130,13 @@ public class SecurityUpgrade extends UpgradeItem implements IPlayerOwned {
     @Override
     public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
-        if (!player.getCommandSenderWorld().isClientSide && player.isSteppingCarefully()) {
+        if (!player.getCommandSenderWorld().isClientSide && player.isSteppingCarefully() && ConfigHolder.common.module.enableSecurityUpgrade.get()) {
             setOwner(stack, player);
             player.displayClientMessage(new TranslatableComponent("modularrouters.itemText.security.owner", player.getDisplayName().getString()), false);
             return InteractionResultHolder.success(stack);
+        } else if (!player.getCommandSenderWorld().isClientSide && !ConfigHolder.common.module.enableSecurityUpgrade.get()) {
+            player.displayClientMessage(new TranslatableComponent("modularrouters.itemText.security.disabled"), false);
+            return InteractionResultHolder.fail(stack);
         }
         return InteractionResultHolder.pass(stack);
     }
